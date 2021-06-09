@@ -19,7 +19,7 @@ import java.util.UUID;
 @AutoConfigureMockMvc
 @ContextConfiguration(classes = {BookController.class, BookService.class, BookRepo.class})
 @WebMvcTest
-public class BookControllerTest {
+class BookControllerTest {
 
     private final ObjectMapper mapper = new ObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
@@ -30,7 +30,7 @@ public class BookControllerTest {
     BookService bookService;
 
     @Test
-    public void getAllBooksTest() throws Exception {
+    void getAllBooksTest() throws Exception {
         String uri = "/books";
         mockMvc
                 .perform(MockMvcRequestBuilders
@@ -41,7 +41,7 @@ public class BookControllerTest {
     }
 
     @Test
-    public void createBookTest() throws Exception {
+    void createBookTest() throws Exception {
         String uri = "/books";
         CreateBookDto createBookDto = new CreateBookDto();
         createBookDto.setName("new book name");
@@ -57,7 +57,7 @@ public class BookControllerTest {
     }
 
     @Test
-    public void getByIdBookTest() throws Exception {
+    void getByIdBookTest() throws Exception {
         List<Book> books = bookService.getAll();
         int randomIndex = new Random().nextInt(books.size());
         Book book = books.get(randomIndex);
@@ -70,7 +70,7 @@ public class BookControllerTest {
     }
 
     @Test
-    public void getByAuthorBookTest() throws Exception {
+    void getByAuthorBookTest() throws Exception {
         List<Book> books = bookService.getAll();
         int randomIndex = new Random().nextInt(books.size());
         Book book = books.get(randomIndex);
@@ -83,7 +83,7 @@ public class BookControllerTest {
     }
 
     @Test
-    public void getByIdExpectNotFoundStatusForBookTest() throws Exception {
+    void getByIdExpectNotFoundStatusForBookTest() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                 .get("/books/" + UUID.randomUUID().toString()))
                 .andExpect(MockMvcResultMatchers.status().isNotFound())
@@ -91,7 +91,7 @@ public class BookControllerTest {
     }
 
     @Test
-    public void getByAuthorNameExpectNotFoundStatusForBookTest() throws Exception {
+    void getByAuthorNameExpectNotFoundStatusForBookTest() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                 .get("/books/" + "some author name 232553525232"))
                 .andExpect(MockMvcResultMatchers.status().isNotFound())
@@ -99,7 +99,7 @@ public class BookControllerTest {
     }
 
     @Test
-    public void updateBooksTest() throws Exception {
+    void updateBooksTest() throws Exception {
         List<Book> books = bookService.getAll();
         int randomIndex = new Random().nextInt(books.size());
         Book book = books.get(randomIndex);
