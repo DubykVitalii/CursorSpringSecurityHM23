@@ -3,12 +3,21 @@ package com.cursor.library;
 //@AllArgsConstructor
 public class CreateBookDto {
 
+    private String id;
     private String name;
     private String author;
     private Integer year;
     private String genre;
 
     public CreateBookDto() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {

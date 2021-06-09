@@ -32,6 +32,10 @@ public class BookService {
                 genre == null ? null : genre.trim());
     }
 
+    public List<Book> getAll() {
+        return bookRepo.getAll();
+    }
+
     public List<Book> getAll(Integer offset, Integer limit) {
         return bookRepo.getAll(offset, limit);
     }

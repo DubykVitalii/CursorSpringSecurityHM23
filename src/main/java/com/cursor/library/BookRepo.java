@@ -30,6 +30,9 @@ public class BookRepo {
 
         return new ArrayList<>(books.values()).subList(offset, limit);
     }
+    public List<Book> getAll() {
+        return new ArrayList<>(books.values());
+    }
 
     public Book saveBook(
             final String name,
@@ -59,6 +62,9 @@ public class BookRepo {
     public List<Book> findAllByAuthor(String bookAuthor) {
         ArrayList<Book> listBooks = new ArrayList<>(books.values());
         List<Book> result = listBooks.stream().filter(book -> book.getAuthor().equals(bookAuthor)).collect(Collectors.toList());
+        if (result.size() == 0) {
+            return null;
+        }
         return result;
     }
 
