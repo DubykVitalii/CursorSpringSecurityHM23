@@ -1,6 +1,5 @@
 package com.cursor.library;
 
-//@AllArgsConstructor
 public class CreateBookDto {
 
     private String id;

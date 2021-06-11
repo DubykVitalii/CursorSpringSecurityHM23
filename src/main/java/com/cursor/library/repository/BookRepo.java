@@ -1,5 +1,8 @@
-package com.cursor.library;
+package com.cursor.library.repository;
 
+import com.cursor.library.models.Book;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -9,6 +12,9 @@ import java.util.stream.Collectors;
 public class BookRepo {
 
     private final Map<String, Book> books = new HashMap<>();
+
+
+
 
     public BookRepo() {
         final String id1 = UUID.randomUUID().toString();
