@@ -25,6 +25,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable()
                 .authorizeRequests()
                 .antMatchers("/users/login").anonymous()
+                .antMatchers("/books/admin").hasAnyRole("ADMIN")
+                .antMatchers("/books/user").hasAnyRole("WRITE", "READ")
                 .anyRequest()
                 .authenticated()
                 .and()

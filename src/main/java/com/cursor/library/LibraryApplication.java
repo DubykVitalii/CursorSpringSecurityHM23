@@ -14,7 +14,11 @@ import java.util.Set;
 
 
 @SpringBootApplication
-@EnableGlobalMethodSecurity(securedEnabled = true)
+@EnableGlobalMethodSecurity(
+        prePostEnabled = true,
+        securedEnabled = true,
+        jsr250Enabled = true
+)
 public class LibraryApplication {
 
     private final UserRepo userRepo;

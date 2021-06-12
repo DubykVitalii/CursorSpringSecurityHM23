@@ -9,10 +9,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Secured({"ROLE_ADMIN", "ROLE_WRITE", "ROLE_READ"})
 @RestController
 public class BookController {
 
@@ -22,6 +24,7 @@ public class BookController {
         this.bookService = bookService;
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_WRITE"})
     @GetMapping(
             value = "/books",
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -37,6 +40,39 @@ public class BookController {
         return new ResponseEntity<>(result, headers, HttpStatus.OK);
     }
 
+    @Secured({"ROLE_ADMIN"})
+    @GetMapping(
+            value = "/books/admin",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<List<Book>> getBooksAdminExample(
+            @RequestParam(value = "limit", defaultValue = "10", required = false) Integer limit,
+            @RequestParam(value = "offset", defaultValue = "0", required = false) Integer offset
+    ) {
+        final List<Book> result = bookService.getAll(offset, limit);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("limit", limit + "");
+        headers.add("offset", offset + "");
+        return new ResponseEntity<>(result, headers, HttpStatus.OK);
+    }
+    @Secured({"ROLE_READ", "ROLE_WRITE"})
+    @GetMapping(
+            value = "/books/user",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<List<Book>> getBooksUserExample(
+            @RequestParam(value = "limit", defaultValue = "10", required = false) Integer limit,
+            @RequestParam(value = "offset", defaultValue = "0", required = false) Integer offset
+    ) {
+        final List<Book> result = bookService.getAll(offset, limit);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("limit", limit + "");
+        headers.add("offset", offset + "");
+        return new ResponseEntity<>(result, headers, HttpStatus.OK);
+    }
+
+
+    @Secured("ROLE_ADMIN")
     @PostMapping(
             value = "/books",
             consumes = MediaType.APPLICATION_JSON_VALUE,
